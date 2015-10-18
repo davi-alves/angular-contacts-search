@@ -1,0 +1,29 @@
+{
+  "name": "codecraft-angularjs-from-zero-to-awesome",
+  "description": "Crode Craft`s AngularJS: From Zero to Awesome",
+  "main": "src/index.html",
+  "authors": [
+    "Davi Alves"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "angularjs"
+  ],
+  "homepage": "https://github.com/flyingkrai/codecraft-angularjs-from-zero-to-awesome",
+  "moduleType": [
+    "es6",
+    "node"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "angularjs#~1.4.7",
+    "bootstrap": "~3.3.5"
+  }
+}
