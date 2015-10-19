@@ -2,7 +2,6 @@ import gulp from 'gulp';
 import gulpLoadPlugins from 'gulp-load-plugins';
 import browserSync from 'browser-sync';
 import del from 'del';
-import {stream as wiredep} from 'wiredep';
 import neat from 'node-neat';
 import browserify from 'browserify';
 import babelify from 'babelify';
@@ -140,21 +139,6 @@ gulp.task('serve:test', () => {
 
   gulp.watch('test/spec/**/*.js').on('change', reload);
   gulp.watch('test/spec/**/*.js', ['lint:test']);
-});
-
-// inject bower components
-gulp.task('wiredep', () => {
-  gulp.src('client/styles/*.scss')
-    .pipe(wiredep({
-      ignorePath: /^(\.\.\/)+/
-    }))
-    .pipe(gulp.dest('client/styles'));
-
-  gulp.src('client/*.html')
-    .pipe(wiredep({
-      ignorePath: /^(\.\.\/)*\.\./
-    }))
-    .pipe(gulp.dest('client'));
 });
 
 gulp.task('build', ['lint', 'fonts', 'html', 'extras'], () => {
