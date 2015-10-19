@@ -154,3 +154,5 @@ bower_components
 .bower-registry
 .bower-tmp
 
+### CURRENT APP SPECIFIC ###
+.tmp
