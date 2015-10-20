@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="pt" ng-app="minMax">
+<html lang="pt" ng-app="persons-app">
 <head>
     <meta charset="UTF-8">
     <title>Angularjs</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/ladda/dist/ladda-themeless.min.css">
     <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
@@ -13,57 +14,27 @@
     <nav class="navbar navbar-inverse navbar-fixes-top">
         <div class="container">
             <div class="navbar-header">
-                <a href="/" class="navbar-brand">Controllers</a>
+                <a href="/" class="navbar-brand">Contacts List</a>
             </div>
         </div>
     </nav>
 
-    <div class="container main-content" ng-controller="MinMaxCtrl as minMax">
-        <form ng-submit="minMax.register()" novalidate="novalidate"
-            name="registerForm">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" class="form-control" id="name" name="name"
-                    ng-model="minMax.formModel.name" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" class="form-control" id="email" name="email"
-                    ng-model="minMax.formModel.email" required>
-            </div>
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" class="form-control" id="username" name="username"
-                    ng-pattern="/^[A-Za-z0-9_]{1,15}$/"
-                    ng-pattern-err-type="badUsername"
-                    minlength="7"
-                    ng-model="minMax.formModel.username" required>
-            </div>
-            <div class="form-group">
-                <label for="age">Age</label>
-                <input type="number" class="form-control" id="age" name="age"
-                    min="18"
-                    ng-min-err-type="tooYoung"
-                    ng-model="minMax.formModel.age">
-            </div>
-            <div class="form-group">
-                <label for="sex">Sex</label>
-                <select class="form-control" id="sex" name="sex"
-                    ng-model="minMax.formModel.sex">
-                    <option value="" selected="selected">Select...</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" name="password"
-                    ng-model="minMax.formModel.password" minlength="6" required>
-            </div>
-            <div class="form-group">
-                <button class="btn btn-primary">Register</button>
-            </div>
-        </form>
+    <div class="container main-content ng-cloak" ng-controller="ListCtrl as list">
+        <table class="table table-bordered">
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Birthday</th>
+            </tr>
+
+            <tr ng-repeat="person in list.persons">
+                <td>{{$index+1}}</td>
+                <td class="capitalize">{{person.fullName}}</td>
+                <td>{{person.email}}</td>
+                <td>{{person.birthdate | date:'longDate'}}</td>
+            </tr>
+        </table>
     </div>
 
     <script src="app.bundle.js"></script>
