@@ -13,6 +13,7 @@ const reload = browserSync.reload;
 gulp.task('scripts', () => {
   browserify({
       entries: './client/app/main.js',
+      global: true,
       debug: true
     })
     .transform(babelify)
