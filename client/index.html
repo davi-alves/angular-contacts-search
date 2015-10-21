@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Angularjs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -58,15 +59,27 @@
                         <th>Birthday</th>
                     </tr>
 
-                    <tr ng-repeat="person in list.persons |
+                    <tr ng-repeat="person in filteredPersons = (
+                        list.persons |
                         filter:list.sensitiveSearch |
-                        orderBy:list.orderBy track by person.salt"
-                        ng-style="{ 'background-color': ($index == list.selectedIndex ? 'lightgray' : '') }"
-                        ng-click="list.selectPerson(person, $index)">
+                        orderBy:list.orderBy) track by person.salt"
+                        ng-style="{
+                            'background-color': (person.salt === list.selectedPerson.salt ? 'lightgray' : '')
+                        }"
+                        ng-click="list.selectPerson(person)">
                         <td>{{$index+1}}</td>
                         <td class="capitalize">{{person.fullName}}</td>
                         <td>{{person.email}}</td>
                         <td>{{person.birthdate | date:'longDate'}}</td>
+                    </tr>
+                    <tr ng-if="filteredPersons.length === 0">
+                        <td colspan="4">
+                            <div class="alert alert-info">
+                                <p class="text-center">
+                                    No results found for search term '{{list.search}}'
+                                </p>
+                            </div>
+                        </td>
                     </tr>
                 </table>
             </div>

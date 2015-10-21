@@ -18,15 +18,13 @@ ListCtrl.$inject = ['$http', '$templateCache'];
 function ListCtrl($http, $templateCache) {
   let vm = this;
   vm.persons = [];
-  vm.selectedIndex = null;
   vm.selectedPerson = null;
   vm.search = '';
   vm.orderBy = '-fullName';
 
   getPersons();
 
-  vm.selectPerson = (person, index) => {
-    vm.selectedIndex = index;
+  vm.selectPerson = (person) => {
     vm.selectedPerson = person;
   };
 
