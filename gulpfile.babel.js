@@ -6,19 +6,29 @@ import neat from 'node-neat';
 import browserify from 'browserify';
 import babelify from 'babelify';
 import source from 'vinyl-source-stream';
+import buffer from 'vinyl-buffer';
 
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
 
 gulp.task('scripts', () => {
-  browserify({
+  // set up the browserify instance on a task basis
+  let b = browserify({
       entries: './client/app/main.js',
       global: true,
-      debug: true
-    })
-    .transform(babelify)
-    .bundle()
+      debug: true,
+      // defining transforms here will avoid crashing your stream
+      transform: [babelify]
+    });
+
+  return b.bundle()
     .pipe(source('app.bundle.js'))
+    .pipe(buffer())
+    // .pipe($.sourcemaps.init({loadMaps: true}))
+        // Add transformation tasks to the pipeline here.
+        // .pipe($.uglify())
+        .on('error', $.util.log)
+    // .pipe($.sourcemaps.write('./'))
     .pipe(gulp.dest('.tmp'))
     .pipe(reload({stream: true}));
 });

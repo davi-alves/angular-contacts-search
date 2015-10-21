@@ -20,21 +20,80 @@
     </nav>
 
     <div class="container main-content ng-cloak" ng-controller="ListCtrl as list">
-        <table class="table table-bordered">
-            <tr>
-                <th>#</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Birthday</th>
-            </tr>
+        <div class="row">
+            <div class="col-md-12">
+                <form class="form-inline well well-sm">
+                    <span class="glyphicon glyphicon-search"></span>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="name"
+                            ng-model="list.search"
+                            placeholder="Search...">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>#</th>
+                        <th ng-click="list.changeOrder('fullName')">
+                            Name
+                            <span>
+                                <i class="glyphicon glyphicon-chevron-up"
+                                    ng-show="list.orderBy === '-fullName'"></i>
+                                <i class="glyphicon glyphicon-chevron-down"
+                                    ng-show="list.orderBy === '+fullName'"></i>
+                            </span>
+                        </th>
+                        <th ng-click="list.changeOrder('email')">
+                            Email
+                            <span>
+                                <i class="glyphicon glyphicon-chevron-up"
+                                    ng-show="list.orderBy === '-email'"></i>
+                                <i class="glyphicon glyphicon-chevron-down"
+                                    ng-show="list.orderBy === '+email'"></i>
+                            </span>
+                        </th>
+                        <th>Birthday</th>
+                    </tr>
 
-            <tr ng-repeat="person in list.persons">
-                <td>{{$index+1}}</td>
-                <td class="capitalize">{{person.fullName}}</td>
-                <td>{{person.email}}</td>
-                <td>{{person.birthdate | date:'longDate'}}</td>
-            </tr>
-        </table>
+                    <tr ng-repeat="person in list.persons |
+                        filter:list.sensitiveSearch |
+                        orderBy:list.orderBy track by person.salt"
+                        ng-style="{ 'background-color': ($index == list.selectedIndex ? 'lightgray' : '') }"
+                        ng-click="list.selectPerson(person, $index)">
+                        <td>{{$index+1}}</td>
+                        <td class="capitalize">{{person.fullName}}</td>
+                        <td>{{person.email}}</td>
+                        <td>{{person.birthdate | date:'longDate'}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Details</div>
+                    <div class="panel-body">
+                        <dl>
+                            <dt>Name</dt>
+                            <dd class="capitalize">{{list.selectedPerson.fullName}}</dd>
+                            <dt>Email</dt>
+                            <dd>{{list.selectedPerson.email}}</dd>
+                            <dt>Birthday</dt>
+                            <dd>{{list.selectedPerson.birthdate}}</dd>
+                            <dt>Phone</dt>
+                            <dd>{{list.selectedPerson.phone}}</dd>
+                            <dt>Address</dt>
+                            <dd class="capitalize">{{list.selectedPerson.location.street}}</dd>
+                            <dt>City</dt>
+                            <dd class="capitalize">{{list.selectedPerson.location.city}}</dd>
+                            <dt>State</dt>
+                            <dd class="capitalize">{{list.selectedPerson.location.state}}</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="app.bundle.js"></script>
