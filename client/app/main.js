@@ -4,14 +4,10 @@ import 'babel/polyfill';
 
 import _ from 'lodash';
 import angular from 'angular';
-import 'angular-animate';
-import 'angular-ladda';
+import { getPersons } from './lib/persons';
 
 angular
-  .module('persons-app', [
-    'ngAnimate',
-    'angular-ladda'
-    ])
+  .module('persons-app', [])
   .controller('ListCtrl', ListCtrl);
 
 ListCtrl.$inject = ['$http', '$templateCache'];
@@ -20,9 +16,7 @@ function ListCtrl($http, $templateCache) {
   vm.persons = [];
   vm.selectedPerson = null;
   vm.search = '';
-  vm.orderBy = '-fullName';
-
-  getPersons();
+  vm.orderBy = '+fullName';
 
   vm.selectPerson = (person) => {
     vm.selectedPerson = person;
@@ -46,26 +40,5 @@ function ListCtrl($http, $templateCache) {
     vm.orderBy = dir + field;
   };
 
-  /*
-    HELPERS
-   */
-  let randomDate = (start, end) => new Date(
-    start.getTime() + Math.random() * (end.getTime() - start.getTime()));
-  let captalize = (string) => string.charAt(0).toUpperCase() + string.slice(1);
-
-  function getPersons () {
-    $http({method: 'GET', url: 'http://api.randomuser.me/?results=30', cache: $templateCache})
-      .then(function (response) {
-
-        let persons = _.pluck(response.data.results, 'user');
-        vm.persons = _.map(persons, function (person) {
-          person.fullName = `${captalize(person.name.first)} ${captalize(person.name.last)}`;
-          person.birthdate = randomDate(new Date(1970, 0, 1), new Date(1997, 0, 1));
-
-          return person;
-        });
-      }, function (response) {
-        console.error(response.statusText);
-      });
-  }
+  getPersons($http, $templateCache).then((response) => vm.persons = response);
 }
