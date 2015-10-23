@@ -156,3 +156,4 @@ bower_components
 
 ### CURRENT APP SPECIFIC ###
 .tmp
+*.bundle.*

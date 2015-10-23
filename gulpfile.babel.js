@@ -14,9 +14,9 @@ const reload = browserSync.reload;
 gulp.task('scripts', () => {
   // set up the browserify instance on a task basis
   let b = browserify({
-      entries: './client/app/main.js',
-      global: true,
+      entries: ['./client/app/main.js'],
       debug: true,
+      // entry: true,
       // defining transforms here will avoid crashing your stream
       transform: [babelify]
     });
