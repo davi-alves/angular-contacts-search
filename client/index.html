@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt" ng-app="persons-app">
+<html lang="pt" ng-app="persons">
+
 <head>
     <meta charset="UTF-8">
-    <title>Angularjs</title>
+    <title>Contacts</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
@@ -10,105 +11,109 @@
     <link rel="stylesheet" href="node_modules/ladda/dist/ladda-themeless.min.css">
     <link rel="stylesheet" href="styles/main.css">
 </head>
+
 <body>
 
     <nav class="navbar navbar-inverse navbar-fixes-top">
         <div class="container">
             <div class="navbar-header">
-                <a href="/" class="navbar-brand">Contacts List</a>
+                <a href="/" class="navbar-brand">Contacts</a>
             </div>
         </div>
     </nav>
 
-    <div class="container main-content ng-cloak" ng-controller="ListCtrl as list">
+    <div class="container main-content ng-cloak">
         <div class="row">
-            <div class="col-md-12">
-                <form class="form-inline well well-sm">
-                    <span class="glyphicon glyphicon-search"></span>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="name"
-                            ng-model="list.search"
-                            placeholder="Search...">
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-8">
-                <table class="table table-bordered">
-                    <tr>
-                        <th>#</th>
-                        <th ng-click="list.changeOrder('fullName')">
-                            Name
-                            <span>
-                                <i class="glyphicon glyphicon-chevron-up"
-                                    ng-show="list.orderBy === '-fullName'"></i>
-                                <i class="glyphicon glyphicon-chevron-down"
-                                    ng-show="list.orderBy === '+fullName'"></i>
-                            </span>
-                        </th>
-                        <th ng-click="list.changeOrder('email')">
-                            Email
-                            <span>
-                                <i class="glyphicon glyphicon-chevron-up"
-                                    ng-show="list.orderBy === '-email'"></i>
-                                <i class="glyphicon glyphicon-chevron-down"
-                                    ng-show="list.orderBy === '+email'"></i>
-                            </span>
-                        </th>
-                        <th>Birthday</th>
-                    </tr>
-
-                    <tr ng-repeat="person in filteredPersons = (
-                        list.persons |
-                        filter:list.sensitiveSearch |
-                        orderBy:list.orderBy) track by person.salt"
-                        ng-style="{
-                            'background-color': (person.salt === list.selectedPerson.salt ? 'lightgray' : '')
-                        }"
-                        ng-click="list.selectPerson(person)">
-                        <td>{{$index+1}}</td>
-                        <td class="capitalize">{{person.fullName}}</td>
-                        <td>{{person.email}}</td>
-                        <td>{{person.birthdate | date:'longDate'}}</td>
-                    </tr>
-                    <tr ng-if="filteredPersons.length === 0">
-                        <td colspan="4">
-                            <div class="alert alert-info">
-                                <p class="text-center">
-                                    No results found for search term '{{list.search}}'
-                                </p>
+            <!-- LISTING -->
+            <div class="col-md-8" ng-controller="ListCtrl as list">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form class="form-inline well well-sm">
+                            <span class="glyphicon glyphicon-search"></span>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="name" ng-model="list.search" placeholder="Search...">
                             </div>
-                        </td>
-                    </tr>
-                </table>
+                        </form>
+                        <table class="table table-bordered">
+                            <tr>
+                                <th ng-click="list.changeOrder('id')" style="width: 57px;">
+                                    #ID
+                                    <span>
+                                        <i class="glyphicon glyphicon-chevron-up" ng-show="list.orderBy === '-id'"></i>
+                                        <i class="glyphicon glyphicon-chevron-down" ng-show="list.orderBy === '+id'"></i>
+                                    </span>
+                                </th>
+                                <th ng-click="list.changeOrder('fullName')">
+                                    Name
+                                    <span>
+                                        <i class="glyphicon glyphicon-chevron-up" ng-show="list.orderBy === '-fullName'"></i>
+                                        <i class="glyphicon glyphicon-chevron-down" ng-show="list.orderBy === '+fullName'"></i>
+                                    </span>
+                                </th>
+                                <th ng-click="list.changeOrder('email')">
+                                    Email
+                                    <span>
+                                        <i class="glyphicon glyphicon-chevron-up" ng-show="list.orderBy === '-email'"></i>
+                                        <i class="glyphicon glyphicon-chevron-down" ng-show="list.orderBy === '+email'"></i>
+                                    </span>
+                                </th>
+                                <th>Birthday</th>
+                            </tr>
+
+                            <tr ng-repeat="person in filteredPersons = (
+                                list.persons |
+                                filter:list.sensitiveSearch |
+                                orderBy:list.orderBy) track by person.salt" ng-style="{
+                                    'background-color': (person.salt === list.selectedPerson.salt ? 'lightgray' : '')
+                                }" ng-click="list.selectPerson(person)">
+                                <td>{{person.id}}</td>
+                                <td class="capitalize">{{person.fullName}}</td>
+                                <td>{{person.email}}</td>
+                                <td>{{person.birthdate | date:'longDate'}}</td>
+                            </tr>
+                            <tr ng-if="filteredPersons.length === 0">
+                                <td colspan="4">
+                                    <div class="alert alert-info">
+                                        <p class="text-center">
+                                            No results found for search term '{{list.search}}'
+                                        </p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-4">
+
+            <!-- DETAILS -->
+            <div class="col-md-4" ng-controller="DetailCtrl as detail">
                 <div class="panel panel-default">
                     <div class="panel-heading">Details</div>
                     <div class="panel-body">
                         <dl>
                             <dt>Name</dt>
-                            <dd class="capitalize">{{list.selectedPerson.fullName}}</dd>
+                            <dd class="capitalize">{{detail.selectedPerson.fullName}}</dd>
                             <dt>Email</dt>
-                            <dd>{{list.selectedPerson.email}}</dd>
+                            <dd>{{detail.selectedPerson.email}}</dd>
                             <dt>Birthday</dt>
-                            <dd>{{list.selectedPerson.birthdate}}</dd>
+                            <dd>{{detail.selectedPerson.birthdate}}</dd>
                             <dt>Phone</dt>
-                            <dd>{{list.selectedPerson.phone}}</dd>
+                            <dd>{{detail.selectedPerson.phone}}</dd>
                             <dt>Address</dt>
-                            <dd class="capitalize">{{list.selectedPerson.location.street}}</dd>
+                            <dd class="capitalize">{{detail.selectedPerson.location.street}}</dd>
                             <dt>City</dt>
-                            <dd class="capitalize">{{list.selectedPerson.location.city}}</dd>
+                            <dd class="capitalize">{{detail.selectedPerson.location.city}}</dd>
                             <dt>State</dt>
-                            <dd class="capitalize">{{list.selectedPerson.location.state}}</dd>
+                            <dd class="capitalize">{{detail.selectedPerson.location.state}}</dd>
                         </dl>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 
     <script src="app.bundle.js"></script>
 </body>
+
 </html>

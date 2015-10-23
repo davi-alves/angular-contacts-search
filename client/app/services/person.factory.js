@@ -1,18 +1,24 @@
 import _ from 'lodash';
+import angular from 'angular';
 
-let randomDate = (start, end) => new Date(
+const randomDate = (start, end) => new Date(
   start.getTime() + Math.random() * (end.getTime() - start.getTime()));
-let captalize = (string) => string.charAt(0).toUpperCase() + string.slice(1);
+const captalize = (string) => string.charAt(0).toUpperCase() + string.slice(1);
 
-function getPersons ($http, $templateCache) {
-  return $http({
+PersonFactory.$inject = ['$http', '$templateCache'];
+
+function PersonFactory($http, $templateCache) {
+  const make = (amount = 30) => {
+    return $http({
         method: 'GET',
         url: 'http://api.randomuser.me/?results=30',
         cache: $templateCache
       })
-      .then(function (response) {
+      .then(function(response) {
         let persons = _.pluck(response.data.results, 'user');
-        persons = _.map(persons, function (person) {
+        let i = 0;
+        persons = _.map(persons, function(person, index) {
+          person.id = ++i;
           person.fullName = `${captalize(person.name.first)} ${captalize(person.name.last)}`;
           person.birthdate = randomDate(new Date(1970, 0, 1), new Date(1997, 0, 1));
 
@@ -21,6 +27,11 @@ function getPersons ($http, $templateCache) {
 
         return persons;
       });
+  };
+
+  return {
+    make
+  };
 }
 
-export { getPersons };
+export default PersonFactory;
