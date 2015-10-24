@@ -63,11 +63,11 @@
                             <tr ng-repeat="person in filteredPersons = (
                                 list.persons |
                                 filter:list.sensitiveSearch |
-                                orderBy:list.orderBy) track by person.salt" ng-style="{
-                                    'background-color': (person.salt === list.selectedPerson.salt ? 'lightgray' : '')
+                                orderBy:list.orderBy) track by person.id" ng-style="{
+                                    'background-color': (person.id === list.selectedPerson.id ? 'lightgray' : '')
                                 }" ng-click="list.selectPerson(person)">
                                 <td>{{person.id}}</td>
-                                <td class="capitalize">{{person.fullName}}</td>
+                                <td class="capitalize">{{person.name}}</td>
                                 <td>{{person.email}}</td>
                                 <td>{{person.birthdate | date:'longDate'}}</td>
                             </tr>
@@ -92,7 +92,7 @@
                     <div class="panel-body">
                         <dl>
                             <dt>Name</dt>
-                            <dd class="capitalize">{{detail.selectedPerson.fullName}}</dd>
+                            <dd class="capitalize">{{detail.selectedPerson.name}}</dd>
                             <dt>Email</dt>
                             <dd>{{detail.selectedPerson.email}}</dd>
                             <dt>Birthday</dt>
@@ -100,11 +100,11 @@
                             <dt>Phone</dt>
                             <dd>{{detail.selectedPerson.phone}}</dd>
                             <dt>Address</dt>
-                            <dd class="capitalize">{{detail.selectedPerson.location.street}}</dd>
+                            <dd class="capitalize">{{detail.selectedPerson.address}}</dd>
                             <dt>City</dt>
-                            <dd class="capitalize">{{detail.selectedPerson.location.city}}</dd>
+                            <dd class="capitalize">{{detail.selectedPerson.city}}</dd>
                             <dt>State</dt>
-                            <dd class="capitalize">{{detail.selectedPerson.location.state}}</dd>
+                            <dd class="capitalize">{{detail.selectedPerson.country}}</dd>
                         </dl>
                     </div>
                 </div>
