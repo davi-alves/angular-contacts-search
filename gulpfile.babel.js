@@ -16,6 +16,7 @@ gulp.task('scripts', () => {
   let b = browserify({
       entries: ['./client/app/main.js'],
       debug: true,
+      insertGlobals: true,
       // entry: true,
       // defining transforms here will avoid crashing your stream
       transform: [babelify]

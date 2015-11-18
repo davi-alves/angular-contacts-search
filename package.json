@@ -19,18 +19,18 @@
     "url": "https://github.com/flyingkrai/codecraft-angularjs-from-zero-to-awesome/issues"
   },
   "homepage": "https://github.com/flyingkrai/codecraft-angularjs-from-zero-to-awesome#readme",
-  "browser": {
-    "angular-auto-validate": "./bower_components/angular-auto-validate/dist/jcs-auto-validate.min.js",
-    "ngInfiniteScroll": ".bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js"
-  },
-  "browserify-shim": {
-    "angular-auto-validate": "angular.module('jcs-autoValidate').name",
-    "ngInfiniteScroll": "angular.module('ngInfiniteScroll').name"
-  },
   "browserify": {
     "transform": [
       "browserify-shim"
     ]
+  },
+  "browser": {
+    "angular-auto-validate": "./bower_components/angular-auto-validate/dist/jcs-auto-validate.min.js",
+    "ngInfiniteScroll": "./bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"
+  },
+  "browserify-shim": {
+    "angular-auto-validate": "angular.module('jcs-autoValidate').name",
+    "ngInfiniteScroll": "angular.module('infinite-scroll').name"
   },
   "devDependencies": {
     "babel": "^5.8.23",

@@ -1,25 +1,47 @@
-PersonService.$inject = ['$rootScope', 'PersonApi'];
+PersonService.$inject = ['$rootScope', 'Person'];
 
-function PersonService($rootScope, PersonApi) {
-  this.selectedPerson = null;
-  this.persons = [];
-  this.hasMore = true;
-  this.page = 1;
-  this.isLoading = false;
+function PersonService($rootScope, Person) {
+  var service = {
+    selectedPerson: null,
+    persons: [],
+    hasMore: true,
+    page: 1,
+    isLoading: false,
+    add(person) {
+      this.persons.push(person);
+    },
+    selectPerson(person) {
+      this.selectedPerson = person;
+    },
+    load() {
+      if (!this.hasMore || this.isLoading) {
+        return;
+      }
 
-  PersonApi.get((response) => {
-    this.hasMore = response.hasMore;
-    this.page++;
-    this.persons = this.persons.concat(response.results);
-  });
+      this.isLoading = true;
+      let params = {page: this.page};
 
-  this.add = (person) => {
-    this.persons.push(person);
+      Person.get(params, (response) => {
+        angular.forEach(response.results, (person) => {
+          this.persons.push(new Person(person));
+        });
+        this.hasMore = !!response.next;
+        this.isLoading = false;
+      });
+    },
+    loadMore () {
+      if (!this.hasMore || this.isLoading) {
+        return;
+      }
+
+      this.page++;
+      this.load();
+    }
   };
 
-  this.selectPerson = (person) => {
-    this.selectedPerson = person;
-  };
+  service.load();
+
+  return service;
 }
 
 export default PersonService;

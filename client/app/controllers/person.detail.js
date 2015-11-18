@@ -1,7 +1,6 @@
-DetailCtrl.$inject = ['$scope', 'PersonService'];
-function DetailCtrl($scope, PersonService) {
-  this.selectedPerson = null;
-  $scope.$watch(() => PersonService.selectedPerson, (val) => this.selectedPerson = val);
+DetailCtrl.$inject = ['PersonService'];
+function DetailCtrl(PersonService) {
+  this.contacts = PersonService;
 }
 
 export default DetailCtrl;

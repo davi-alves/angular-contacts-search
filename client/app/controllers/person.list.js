@@ -1,14 +1,12 @@
-ListCtrl.$inject = ['$scope', 'PersonService'];
-function ListCtrl($scope, PersonService) {
-  this.persons = [];
-  this.selectedPerson = null;
+ListCtrl.$inject = ['PersonService'];
+function ListCtrl(PersonService) {
   this.search = '';
   this.orderBy = '+fullName';
+  this.contacts = PersonService;
 
-  $scope.$watch(() => PersonService.persons, (val) => this.persons = val);
-  $scope.$watch(() => PersonService.selectedPerson, (val) => this.selectedPerson = val);
-
-  this.selectPerson = PersonService.selectPerson;
+  this.loadMore = () => {
+    this.contacts.loadMore();
+  };
 
   this.sensitiveSearch = (person) => {
     if (this.search) {

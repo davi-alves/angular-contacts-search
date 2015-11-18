@@ -13,6 +13,7 @@ import configs from './configs/person';
 angular.module('persons', [
   // core/libs
   'ngResource',
+  require('ngInfiniteScroll'),
   // app specific
   services,
   controllers,
