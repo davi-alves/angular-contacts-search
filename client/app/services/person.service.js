@@ -9,6 +9,8 @@ function PersonService($rootScope, Person) {
     isLoading: false,
     search: null,
     orderBy: null,
+    isSaving: false,
+    isDeleting: false,
     add(person) {
       this.persons.push(person);
     },
@@ -46,12 +48,26 @@ function PersonService($rootScope, Person) {
       });
     },
     loadMore () {
-      if (!this.hasMore || this.isLoading) {
-        return;
+      if (this.hasMore && !this.isLoading) {
+        this.page++;
+        this.load();
       }
+    },
+    update (person) {
+      this.isSaving = true;
+      person.$update().then(() => this.isSaving = false);
+    },
+    remove (person) {
+      this.isDeleting = true;
+      person.$remove().then(() => {
+        this.selectedPerson = null;
+        this.isDeleting = false;
 
-      this.page++;
-      this.load();
+        let index = this.persons.indexOf(person);
+        if (index !== -1) {
+          this.persons.splice(index, 1);
+        }
+      });
     }
   };
 
