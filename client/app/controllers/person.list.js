@@ -1,25 +1,29 @@
 import _ from 'lodash';
 
-ListCtrl.$inject = ['$scope', 'PersonService'];
-function ListCtrl($scope, PersonService) {
+ListCtrl.$inject = ['$scope', '$modal', 'PersonService'];
+function ListCtrl($scope, $modal, PersonService) {
   this.search = '';
   this.orderBy = '-fullName';
-  this.contacts = PersonService;
+  $scope.contacts = PersonService;
 
-  $scope.$watch(() => this.search, _.debounce((newVal, oldVal) => {
-    if (angular.isDefined(newVal)) {
-      this.contacts.doSearch(newVal);
-    }
-  }, 500));
+  $scope.create = () => {
+    $scope.contacts.create($scope.contacts.selectedPerson).then(() => {
+      $scope.contacts.selectedPerson = null;
+      $scope.createModal.hide();
+    });
+  };
 
-  $scope.$watch(() => this.orderBy, (newVal, oldVal) => {
-    if (angular.isDefined(newVal)) {
-      this.contacts.doOrder(newVal);
-    }
-  });
+  this.showCreateModal = () => {
+    $scope.contacts.selectedPerson = {};
+    $scope.createModal = $modal({
+      scope: $scope,
+      templateUrl: 'app/templates/modal.create.tpl.html',
+      show: true
+    });
+  };
 
   this.loadMore = () => {
-    this.contacts.loadMore();
+    $scope.contacts.loadMore();
   };
 
   this.changeOrder = (field) => {
@@ -31,6 +35,18 @@ function ListCtrl($scope, PersonService) {
     this.orderBy = dir + field;
   };
 
+  // WATCHES
+  $scope.$watch(() => this.search, _.debounce((newVal, oldVal) => {
+    if (angular.isDefined(newVal)) {
+      $scope.contacts.doSearch(newVal);
+    }
+  }, 500));
+
+  $scope.$watch(() => this.orderBy, (newVal, oldVal) => {
+    if (angular.isDefined(newVal)) {
+      $scope.contacts.doOrder(newVal);
+    }
+  });
 }
 
 export default ListCtrl;

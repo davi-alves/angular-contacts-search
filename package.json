@@ -26,11 +26,17 @@
   },
   "browser": {
     "angular-auto-validate": "./bower_components/angular-auto-validate/dist/jcs-auto-validate.min.js",
-    "ngInfiniteScroll": "./bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"
+    "ngInfiniteScroll": "./bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js",
+    "angular-strap-core": "./bower_components/angular-strap/dist/angular-strap.min.js",
+    "angular-strap": "./bower_components/angular-strap/dist/angular-strap.tpl.min.js"
   },
   "browserify-shim": {
     "angular-auto-validate": "angular.module('jcs-autoValidate').name",
-    "ngInfiniteScroll": "angular.module('infinite-scroll').name"
+    "ngInfiniteScroll": "angular.module('infinite-scroll').name",
+    "angular-strap": {
+      "exports": "angular.module('mgcrea.ngStrap').name",
+      "depends": ["angular-strap-core"]
+    }
   },
   "devDependencies": {
     "babel": "^5.8.23",

@@ -1,6 +1,6 @@
-PersonService.$inject = ['$rootScope', 'Person'];
+PersonService.$inject = ['$timeout', 'Person'];
 
-function PersonService($rootScope, Person) {
+function PersonService($timeout, Person) {
   var service = {
     selectedPerson: null,
     persons: [],
@@ -53,13 +53,21 @@ function PersonService($rootScope, Person) {
         this.load();
       }
     },
+    create: function (person) {
+      this.isSaving = true;
+      return Person.save(person).$promise.then((response) => {
+        this.isSaving = false;
+        this.persons.push(response);
+        this.doSearch();
+      });
+    },
     update (person) {
       this.isSaving = true;
-      person.$update().then(() => this.isSaving = false);
+      return person.$update().then(() => this.isSaving = false);
     },
     remove (person) {
       this.isDeleting = true;
-      person.$remove().then(() => {
+      return person.$remove().then(() => {
         this.selectedPerson = null;
         this.isDeleting = false;
 

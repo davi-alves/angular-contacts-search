@@ -16,6 +16,7 @@ angular.module('persons', [
   'ngResource',
   require('ngInfiniteScroll'),
   require('angular-auto-validate'),
+  require('angular-strap'),
   'angularSpinner',
   'angular-ladda',
   // app specific

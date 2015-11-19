@@ -1,13 +1,15 @@
-DetailCtrl.$inject = ['PersonService'];
-function DetailCtrl(PersonService) {
-  this.contacts = PersonService;
+DetailCtrl.$inject = ['$scope', 'PersonService'];
+function DetailCtrl($scope, PersonService) {
+  $scope.contacts = PersonService;
 
   this.save = () => {
-    this.contacts.update(this.contacts.selectedPerson);
+    $scope.contacts.update($scope.contacts.selectedPerson)
+      .then(() => $scope.contacts.selectedPerson = null);
   };
 
   this.remove = () => {
-    this.contacts.remove(this.contacts.selectedPerson);
+    $scope.contacts.remove($scope.contacts.selectedPerson)
+      .then(() => $scope.contacts.selectedPerson = null);
   };
 }
 
