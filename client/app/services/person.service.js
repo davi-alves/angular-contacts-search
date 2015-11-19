@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 PersonService.$inject = ['toaster', 'Person'];
 
 function PersonService(toaster, Person) {
@@ -41,7 +43,9 @@ function PersonService(toaster, Person) {
 
       Person.get(params, (response) => {
         angular.forEach(response.results, (person) => {
-          this.persons.push(new Person(person));
+          if (!_.find(this.persons, {id: person.id})) {
+            this.persons.push(new Person(person));
+          }
         });
         this.hasMore = !!response.next;
         this.isLoading = false;

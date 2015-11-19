@@ -3,7 +3,7 @@ import _ from 'lodash';
 ListCtrl.$inject = ['$scope', '$modal', 'PersonService'];
 function ListCtrl($scope, $modal, PersonService) {
   this.search = '';
-  this.orderBy = '-fullName';
+  this.orderBy = '-name';
   $scope.contacts = PersonService;
 
   $scope.create = () => {
@@ -27,9 +27,9 @@ function ListCtrl($scope, $modal, PersonService) {
   };
 
   this.changeOrder = (field) => {
-    let dir = '+';
-    if (this.orderBy.match(field) && this.orderBy.charAt(0) === '+') {
-      dir = '-';
+    let dir = '-';
+    if (this.orderBy.match(field) && this.orderBy.charAt(0) === '-') {
+      dir = '+';
     }
 
     this.orderBy = dir + field;

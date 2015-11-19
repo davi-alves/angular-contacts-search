@@ -8,10 +8,12 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
     <link rel="stylesheet" href="bower_components/bootstrap-additions/dist/bootstrap-additions.min.css">
     <link rel="stylesheet" href="node_modules/ladda/dist/ladda-themeless.min.css">
     <link rel="stylesheet" href="bower_components/angular-motion/dist/angular-motion.min.css">
     <link rel="stylesheet" href="node_modules/angularjs-toaster/toaster.min.css">
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="styles/main.css">
 </head>
 
@@ -36,7 +38,7 @@
                     <div class="col-md-12">
                         <!-- SEARCH -->
                         <form class="form-inline well well-sm">
-                            <span class="glyphicon glyphicon-search"></span>
+                            <span class="fa fa-search"></span>
                             <div class="form-group">
                                 <input type="text" class="form-control" id="name"
                                     ng-model="list.search" placeholder="Search...">
@@ -53,28 +55,22 @@
                             infinite-scroll-disabled="!contacts.hasMore || contacts.isLoading"
                             infinite-scroll-immediate-check="true">
                             <tr>
-                                <th ng-click="list.changeOrder('id')" style="width: 57px;">
-                                    #ID
-                                    <span>
-                                        <i class="glyphicon glyphicon-chevron-up" ng-show="list.orderBy === '-id'"></i>
-                                        <i class="glyphicon glyphicon-chevron-down" ng-show="list.orderBy === '+id'"></i>
-                                    </span>
-                                </th>
-                                <th ng-click="list.changeOrder('fullName')">
+                                <th class="col-1">#ID</th>
+                                <th class="col-2">
+                                    <div class="sortables">
+                                        <span class="fa fa-sort-asc" ng-click="list.orderBy = '-name'"></span>
+                                        <span class="fa fa-sort-desc" ng-click="list.orderBy = '+name'"></span>
+                                    </div>
                                     Name
-                                    <span>
-                                        <i class="glyphicon glyphicon-chevron-up" ng-show="list.orderBy === '-fullName'"></i>
-                                        <i class="glyphicon glyphicon-chevron-down" ng-show="list.orderBy === '+fullName'"></i>
-                                    </span>
                                 </th>
-                                <th ng-click="list.changeOrder('email')">
+                                <th class="col-3">
+                                    <div class="sortables">
+                                        <span class="fa fa-sort-asc" ng-click="list.orderBy = '-email'"></span>
+                                        <span class="fa fa-sort-desc" ng-click="list.orderBy = '+email'"></span>
+                                    </div>
                                     Email
-                                    <span>
-                                        <i class="glyphicon glyphicon-chevron-up" ng-show="list.orderBy === '-email'"></i>
-                                        <i class="glyphicon glyphicon-chevron-down" ng-show="list.orderBy === '+email'"></i>
-                                    </span>
                                 </th>
-                                <th>Phone</th>
+                                <th class="col-4">Phone</th>
                             </tr>
 
                             <tr ng-repeat="person in contacts.persons track by person.id" ng-style="{
