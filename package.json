@@ -35,7 +35,9 @@
     "ngInfiniteScroll": "angular.module('infinite-scroll').name",
     "angular-strap": {
       "exports": "angular.module('mgcrea.ngStrap').name",
-      "depends": ["angular-strap-core"]
+      "depends": [
+        "angular-strap-core"
+      ]
     }
   },
   "devDependencies": {
@@ -69,6 +71,7 @@
     "angular-ladda": "^0.3.1",
     "angular-resource": "^1.4.7",
     "angular-spinner": "^0.8.0",
+    "angularjs-toaster": "^0.4.15",
     "jquery": "^2.1.4",
     "ladda": "^0.9.8",
     "lodash": "^3.10.1"

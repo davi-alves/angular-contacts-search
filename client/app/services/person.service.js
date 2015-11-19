@@ -1,6 +1,6 @@
-PersonService.$inject = ['$timeout', 'Person'];
+PersonService.$inject = ['toaster', 'Person'];
 
-function PersonService($timeout, Person) {
+function PersonService(toaster, Person) {
   var service = {
     selectedPerson: null,
     persons: [],
@@ -56,6 +56,7 @@ function PersonService($timeout, Person) {
     create: function (person) {
       this.isSaving = true;
       return Person.save(person).$promise.then((response) => {
+        toaster.pop('success', `'${person.name}' was added to contacts list`);
         this.isSaving = false;
         this.persons.push(response);
         this.doSearch();
@@ -63,11 +64,15 @@ function PersonService($timeout, Person) {
     },
     update (person) {
       this.isSaving = true;
-      return person.$update().then(() => this.isSaving = false);
+      return person.$update().then(() => {
+        toaster.pop('success', `'${person.name}' was updated`);
+        this.isSaving = false;
+      });
     },
     remove (person) {
       this.isDeleting = true;
       return person.$remove().then(() => {
+        toaster.pop('success', `'${person.name}' was removed from contacts list`);
         this.selectedPerson = null;
         this.isDeleting = false;
 
