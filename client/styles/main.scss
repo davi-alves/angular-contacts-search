@@ -29,3 +29,12 @@ tr > td > .alert.alert-info { margin-bottom: 0; }
     }
   }
 }
+
+.table {
+  tr {
+    td {
+      vertical-align: middle;
+      .profile-photo {height: 30px;width: 30px;}
+    }
+  }
+}

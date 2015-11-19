@@ -16,6 +16,14 @@ const _module = angular.module('persons:config', [])
     });
   }])
 
+  // datepicker config
+  .config(['$datepickerProvider', ($datepickerProvider) => {
+    angular.extend($datepickerProvider.defaults, {
+      dateFormat: 'd/M/yyyy',
+      autoclose: true
+    });
+  }])
+
   // autovalidate configurations
   .run(function (bootstrap3ElementModifier, defaultErrorMessageResolver) {
     bootstrap3ElementModifier.enableValidationStateIcons(true);

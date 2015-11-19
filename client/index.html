@@ -8,6 +8,7 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bower_components/bootstrap-additions/dist/bootstrap-additions.min.css">
     <link rel="stylesheet" href="node_modules/ladda/dist/ladda-themeless.min.css">
     <link rel="stylesheet" href="bower_components/angular-motion/dist/angular-motion.min.css">
     <link rel="stylesheet" href="styles/main.css">
@@ -69,16 +70,20 @@
                                         <i class="glyphicon glyphicon-chevron-down" ng-show="list.orderBy === '+email'"></i>
                                     </span>
                                 </th>
-                                <th>Birthday</th>
+                                <th>Phone</th>
                             </tr>
 
                             <tr ng-repeat="person in contacts.persons track by person.id" ng-style="{
                                     'background-color': (person.id === contacts.selectedPerson.id ? 'lightgray' : '')
                                 }" ng-click="contacts.selectPerson(person)">
-                                <td>{{person.id}}</td>
+                                <td>
+                                  <img class="img-circle profile-photo"
+                                      ng-src="{{person.photo}}" alt="{{person.name}}"
+                                      ng-if="person.photo">
+                                </td>
                                 <td class="capitalize">{{person.name}}</td>
                                 <td>{{person.email}}</td>
-                                <td>{{person.birthdate | date:'longDate'}}</td>
+                                <td>{{person.phonenumber}}</td>
                             </tr>
                         </table>
 
