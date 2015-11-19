@@ -7,11 +7,27 @@ function PersonService($rootScope, Person) {
     hasMore: true,
     page: 1,
     isLoading: false,
+    search: null,
+    orderBy: null,
     add(person) {
       this.persons.push(person);
     },
     selectPerson(person) {
       this.selectedPerson = person;
+    },
+    doSearch(search) {
+      this.hasMore = true;
+      this.page = 1;
+      this.persons = [];
+      this.search = search;
+      this.load();
+    },
+    doOrder(orderBy) {
+      this.hasMore = true;
+      this.page = 1;
+      this.persons = [];
+      this.orderBy = orderBy;
+      this.load();
     },
     load() {
       if (!this.hasMore || this.isLoading) {
@@ -19,7 +35,7 @@ function PersonService($rootScope, Person) {
       }
 
       this.isLoading = true;
-      let params = {page: this.page};
+      let params = {page: this.page, search: this.search, ordering: this.orderBy};
 
       Person.get(params, (response) => {
         angular.forEach(response.results, (person) => {

@@ -2,7 +2,6 @@
 
 import 'babel/polyfill';
 
-import _ from 'lodash';
 import angular from 'angular';
 import 'angular-resource';
 

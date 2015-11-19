@@ -1,20 +1,25 @@
-ListCtrl.$inject = ['PersonService'];
-function ListCtrl(PersonService) {
+import _ from 'lodash';
+
+ListCtrl.$inject = ['$scope', 'PersonService'];
+function ListCtrl($scope, PersonService) {
   this.search = '';
-  this.orderBy = '+fullName';
+  this.orderBy = '-fullName';
   this.contacts = PersonService;
+
+  $scope.$watch(() => this.search, _.debounce((newVal, oldVal) => {
+    if (angular.isDefined(newVal)) {
+      this.contacts.doSearch(newVal);
+    }
+  }, 500));
+
+  $scope.$watch(() => this.orderBy, (newVal, oldVal) => {
+    if (angular.isDefined(newVal)) {
+      this.contacts.doOrder(newVal);
+    }
+  });
 
   this.loadMore = () => {
     this.contacts.loadMore();
-  };
-
-  this.sensitiveSearch = (person) => {
-    if (this.search) {
-      return person.fullName.indexOf(this.search) === 0 ||
-        person.email.indexOf(this.search) === 0;
-    }
-
-    return true;
   };
 
   this.changeOrder = (field) => {

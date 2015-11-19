@@ -64,10 +64,7 @@
                                 <th>Birthday</th>
                             </tr>
 
-                            <tr ng-repeat="person in filteredPersons = (
-                                list.contacts.persons |
-                                filter:list.sensitiveSearch |
-                                orderBy:list.orderBy) track by person.id" ng-style="{
+                            <tr ng-repeat="person in list.contacts.persons track by person.id" ng-style="{
                                     'background-color': (person.id === list.contacts.selectedPerson.id ? 'lightgray' : '')
                                 }" ng-click="list.contacts.selectPerson(person)">
                                 <td>{{person.id}}</td>
@@ -75,7 +72,7 @@
                                 <td>{{person.email}}</td>
                                 <td>{{person.birthdate | date:'longDate'}}</td>
                             </tr>
-                            <tr ng-if="filteredPersons.length === 0">
+                            <tr ng-if="list.contacts.persons.length === 0">
                                 <td colspan="4">
                                     <div class="alert alert-info">
                                         <p class="text-center">
