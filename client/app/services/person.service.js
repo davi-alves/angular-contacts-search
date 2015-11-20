@@ -13,8 +13,8 @@ function PersonService(toaster, Person) {
     orderBy: '+name',
     isSaving: false,
     isDeleting: false,
-    add(person) {
-      this.persons.push(person);
+    get(email) {
+      return _.find(this.persons, {email:email});
     },
     selectPerson(person) {
       this.selectedPerson = person;
@@ -42,12 +42,12 @@ function PersonService(toaster, Person) {
       let params = {page: this.page, search: this.search, ordering: this.orderBy};
 
       Person.get(params, (response) => {
-        angular.forEach(response.results, (person) => {
-          if (!_.find(this.persons, {id: person.id})) {
+        if (response) {
+          _.each(response.results, (person) => {
             this.persons.push(new Person(person));
-          }
-        });
-        this.hasMore = !!response.next;
+          });
+          this.hasMore = !!response.next;
+        }
         this.isLoading = false;
       });
     },

@@ -7,6 +7,15 @@ const _routes = [
       controllerAs: 'list',
       controller: 'ListCtrl'
     }
+  },
+  {
+    name: 'edit',
+    options: {
+      url: '/edit/:email',
+      templateUrl: 'templates/edit.html',
+      controllerAs: 'detail',
+      controller: 'DetailCtrl'
+    }
   }
 ];
 

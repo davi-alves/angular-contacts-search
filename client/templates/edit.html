@@ -1,6 +1,5 @@
-<!-- DETAILS -->
-<div class="col-md-8 col-md-offset-2" ng-controller="DetailCtrl as detail">
-    <div class="panel panel-default" ng-show="contacts.selectedPerson">
+<div class="col-md-8 col-md-offset-2">
+    <div class="panel panel-default">
         <div class="panel-heading">
             Details
             <!-- DELETE BTN -->
@@ -13,7 +12,8 @@
             <div class="clearfix"></div>
         </div>
         <div class="panel-body">
-            <form class="form-horizontal" ng-submit="detail.save()" novalidate>
+            <form name="editForm" class="form-horizontal"
+                ng-submit="detail.save(this.editForm)" novalidate>
                 <ng-include src="'templates/form.tpl.html'"></ng-include>
             </form>
         </div>
