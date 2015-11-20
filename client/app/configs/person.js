@@ -24,6 +24,24 @@ const _module = angular.module('persons:config', [])
     });
   }])
 
+  .config(function($httpProvider) {
+    $httpProvider.interceptors.push(function($q) {
+      var realEncodeURIComponent = window.encodeURIComponent;
+      return {
+        request (config) {
+          window.encodeURIComponent = function(input) {
+            return realEncodeURIComponent(input).split('%2B').join('+');
+          };
+          return config || $q.when(config);
+        },
+        response (config) {
+          window.encodeURIComponent = realEncodeURIComponent;
+          return config || $q.when(config);
+        }
+      };
+    });
+  })
+
   // autovalidate configurations
   .run(function (bootstrap3ElementModifier, defaultErrorMessageResolver) {
     bootstrap3ElementModifier.enableValidationStateIcons(true);

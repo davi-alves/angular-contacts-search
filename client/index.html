@@ -78,8 +78,7 @@
                                 }" ng-click="contacts.selectPerson(person)">
                                 <td>
                                   <img class="img-circle profile-photo"
-                                      ng-src="{{person.photo}}" alt="{{person.name}}"
-                                      ng-if="person.photo">
+                                      ng-src="{{person.photo | photo}}" alt="{{person.name}}">
                                 </td>
                                 <td class="capitalize">{{person.name}}</td>
                                 <td>{{person.email}}</td>
@@ -121,7 +120,7 @@
                     </div>
                     <div class="panel-body">
                         <form class="form-horizontal" ng-submit="detail.save()" novalidate>
-                            <ng-include src="'app/templates/form.tpl.html'"></ng-include>
+                            <ng-include src="'templates/form.tpl.html'"></ng-include>
                         </form>
                     </div>
                 </div>

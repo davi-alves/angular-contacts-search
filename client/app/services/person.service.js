@@ -10,7 +10,7 @@ function PersonService(toaster, Person) {
     page: 1,
     isLoading: false,
     search: null,
-    orderBy: null,
+    orderBy: '+name',
     isSaving: false,
     isDeleting: false,
     add(person) {

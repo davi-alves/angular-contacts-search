@@ -12,6 +12,7 @@ import 'angularjs-toaster';
 import services from './services/person';
 import controllers from './controllers/person';
 import configs from './configs/person';
+import filters from './filters/person';
 
 angular.module('persons', [
   // core/libs
@@ -26,5 +27,6 @@ angular.module('persons', [
   // app specific
   services,
   controllers,
-  configs
+  configs,
+  filters
 ]);

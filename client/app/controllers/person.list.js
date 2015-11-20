@@ -3,7 +3,7 @@ import _ from 'lodash';
 ListCtrl.$inject = ['$scope', '$modal', 'PersonService'];
 function ListCtrl($scope, $modal, PersonService) {
   this.search = '';
-  this.orderBy = '-name';
+  this.orderBy = '+name';
   $scope.contacts = PersonService;
 
   $scope.create = () => {
@@ -17,22 +17,13 @@ function ListCtrl($scope, $modal, PersonService) {
     $scope.contacts.selectedPerson = {};
     $scope.createModal = $modal({
       scope: $scope,
-      templateUrl: 'app/templates/modal.create.tpl.html',
+      templateUrl: 'templates/modal.create.tpl.html',
       show: true
     });
   };
 
   this.loadMore = () => {
     $scope.contacts.loadMore();
-  };
-
-  this.changeOrder = (field) => {
-    let dir = '-';
-    if (this.orderBy.match(field) && this.orderBy.charAt(0) === '-') {
-      dir = '+';
-    }
-
-    this.orderBy = dir + field;
   };
 
   // WATCHES
