@@ -71,6 +71,7 @@
     "angular-ladda": "^0.3.1",
     "angular-resource": "^1.4.7",
     "angular-spinner": "^0.8.0",
+    "angular-ui-router": "^0.2.15",
     "angularjs-toaster": "^0.4.15",
     "jquery": "^2.1.4",
     "ladda": "^0.9.8",

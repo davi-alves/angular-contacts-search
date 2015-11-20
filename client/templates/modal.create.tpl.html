@@ -7,7 +7,8 @@
             </div>
 
             <div class="modal-body">
-                <form class="form-horizontal" ng-submit="create()" novalidate>
+                <form name="createForm" class="form-horizontal"
+                    ng-submit="create(this.createForm)" novalidate>
                     <ng-include src="'templates/form.tpl.html'"></ng-include>
                 </form>
             </div>

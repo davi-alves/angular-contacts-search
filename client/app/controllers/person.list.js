@@ -6,8 +6,9 @@ function ListCtrl($scope, $modal, PersonService) {
   this.orderBy = '+name';
   $scope.contacts = PersonService;
 
-  $scope.create = () => {
+  $scope.create = (form) => {
     $scope.contacts.create($scope.contacts.selectedPerson).then(() => {
+      form.$setPristine();
       $scope.contacts.selectedPerson = null;
       $scope.createModal.hide();
     });
