@@ -3,27 +3,44 @@ const _routes = [
     name: 'list',
     options: {
       url: '/',
-      templateUrl: 'templates/list.html',
-      controllerAs: 'list',
-      controller: 'ListCtrl'
+      views: {
+        main: {
+          templateUrl: 'templates/list.html',
+          controllerAs: 'list',
+          controller: 'ListCtrl',
+        },
+        search: {
+          templateUrl: 'templates/search-form.html',
+          controllerAs: 'list',
+          controller: 'ListCtrl',
+        }
+      }
     }
   },
   {
     name: 'edit',
     options: {
       url: '/edit/:email',
-      templateUrl: 'templates/edit.html',
-      controllerAs: 'detail',
-      controller: 'DetailCtrl'
+      views: {
+        main: {
+          templateUrl: 'templates/edit.html',
+          controllerAs: 'detail',
+          controller: 'DetailCtrl'
+        }
+      }
     }
   },
   {
     name: 'create',
     options: {
       url: '/create',
-      templateUrl: 'templates/edit.html',
-      controllerAs: 'detail',
-      controller: 'CreateCtrl'
+      views: {
+        main: {
+          templateUrl: 'templates/edit.html',
+          controllerAs: 'detail',
+          controller: 'CreateCtrl'
+        }
+      }
     }
   }
 ];
