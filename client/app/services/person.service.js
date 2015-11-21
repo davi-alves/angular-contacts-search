@@ -92,11 +92,11 @@ function PersonService($rootScope, toaster, Person) {
     },
     watch() {
       // search
-      $rootScope.$watch(() => this.search, _.debounce((newVal) => {
+      $rootScope.$watch(() => this.search, (newVal) => {
         if (angular.isDefined(newVal)) {
           this.doSearch();
         }
-      }, 500));
+      });
       // order
       $rootScope.$watch(() => this.orderBy, (newVal) => {
         if (angular.isDefined(newVal)) {
