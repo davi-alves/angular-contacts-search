@@ -5,7 +5,8 @@
             <!-- DELETE BTN -->
             <button class="btn btn-danger btn-sm pull-right"
                 ladda="contacts.isDeleting"
-                ng-click="detail.remove()">
+                ng-click="detail.remove()"
+                ng-if="contacts.selectedPerson.id">
                 <span ng-if="contacts.isDeleting">Deleting</span>
                 <span ng-if="!contacts.isDeleting">Delete</span>
             </button>

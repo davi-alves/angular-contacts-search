@@ -1,9 +1,8 @@
 import _ from 'lodash';
 
 ListCtrl.$inject = ['$scope', '$modal', 'PersonService'];
+
 function ListCtrl($scope, $modal, PersonService) {
-  this.search = null;
-  this.orderBy = null;
   $scope.contacts = PersonService;
 
   $scope.create = (form) => {
@@ -26,19 +25,6 @@ function ListCtrl($scope, $modal, PersonService) {
   this.loadMore = () => {
     $scope.contacts.loadMore();
   };
-
-  // WATCHES
-  $scope.$watch(() => this.search, _.debounce((newVal, oldVal) => {
-    if (angular.isDefined(newVal) && newVal !== null) {
-      $scope.contacts.doSearch(newVal);
-    }
-  }, 500));
-
-  $scope.$watch(() => this.orderBy, (newVal, oldVal) => {
-    if (angular.isDefined(newVal) && newVal !== null) {
-      $scope.contacts.doOrder(newVal);
-    }
-  });
 }
 
 export default ListCtrl;

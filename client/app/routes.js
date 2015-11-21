@@ -16,6 +16,15 @@ const _routes = [
       controllerAs: 'detail',
       controller: 'DetailCtrl'
     }
+  },
+  {
+    name: 'create',
+    options: {
+      url: '/create',
+      templateUrl: 'templates/edit.html',
+      controllerAs: 'detail',
+      controller: 'CreateCtrl'
+    }
   }
 ];
 

@@ -1,8 +1,8 @@
 import _ from 'lodash';
 
-PersonService.$inject = ['toaster', 'Person'];
+PersonService.$inject = ['$rootScope', 'toaster', 'Person'];
 
-function PersonService(toaster, Person) {
+function PersonService($rootScope, toaster, Person) {
   var service = {
     selectedPerson: null,
     persons: [],
@@ -14,23 +14,23 @@ function PersonService(toaster, Person) {
     isSaving: false,
     isDeleting: false,
     get(email) {
-      return _.find(this.persons, {email:email});
+      return _.find(this.persons, {
+        email: email
+      });
     },
     selectPerson(person) {
       this.selectedPerson = person;
     },
-    doSearch(search) {
+    doSearch() {
       this.hasMore = true;
       this.page = 1;
       this.persons = [];
-      this.search = search;
       this.load();
     },
-    doOrder(orderBy) {
+    doOrder() {
       this.hasMore = true;
       this.page = 1;
       this.persons = [];
-      this.orderBy = orderBy;
       this.load();
     },
     load() {
@@ -39,7 +39,11 @@ function PersonService(toaster, Person) {
       }
 
       this.isLoading = true;
-      let params = {page: this.page, search: this.search, ordering: this.orderBy};
+      let params = {
+        page: this.page,
+        search: this.search,
+        ordering: this.orderBy
+      };
 
       Person.get(params, (response) => {
         if (response) {
@@ -51,13 +55,13 @@ function PersonService(toaster, Person) {
         this.isLoading = false;
       });
     },
-    loadMore () {
+    loadMore() {
       if (this.hasMore && !this.isLoading) {
         this.page++;
         this.load();
       }
     },
-    create: function (person) {
+    create: function(person) {
       this.isSaving = true;
       return Person.save(person).$promise.then((response) => {
         toaster.pop('success', `'${person.name}' was added to contacts list`);
@@ -66,14 +70,14 @@ function PersonService(toaster, Person) {
         this.doSearch();
       });
     },
-    update (person) {
+    update(person) {
       this.isSaving = true;
       return person.$update().then(() => {
         toaster.pop('success', `'${person.name}' was updated`);
         this.isSaving = false;
       });
     },
-    remove (person) {
+    remove(person) {
       this.isDeleting = true;
       return person.$remove().then(() => {
         toaster.pop('success', `'${person.name}' was removed from contacts list`);
@@ -85,9 +89,24 @@ function PersonService(toaster, Person) {
           this.persons.splice(index, 1);
         }
       });
+    },
+    watch() {
+      // search
+      $rootScope.$watch(() => this.search, _.debounce((newVal) => {
+        if (angular.isDefined(newVal)) {
+          this.doSearch();
+        }
+      }, 500));
+      // order
+      $rootScope.$watch(() => this.orderBy, (newVal) => {
+        if (angular.isDefined(newVal)) {
+          this.doOrder();
+        }
+      });
     }
   };
 
+  service.watch();
   service.load();
 
   return service;

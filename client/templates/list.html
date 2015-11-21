@@ -4,11 +4,8 @@
         <span class="fa fa-search"></span>
         <div class="form-group">
             <input type="text" class="form-control" id="name"
-                ng-model="list.search" placeholder="Search...">
+                ng-model="contacts.search" placeholder="Search...">
         </div>
-
-        <button class="btn btn-primary pull-right"
-            ng-click="list.showCreateModal()">Create</button>
     </form>
 
     <!-- CONTACTS -->
@@ -22,15 +19,15 @@
                 <th class="col-1">#ID</th>
                 <th class="col-2">
                     <div class="sortables">
-                        <span class="fa fa-sort-asc" ng-click="list.orderBy = '-name'"></span>
-                        <span class="fa fa-sort-desc" ng-click="list.orderBy = '+name'"></span>
+                        <span class="fa fa-sort-asc" ng-click="contacts.orderBy = '-name'"></span>
+                        <span class="fa fa-sort-desc" ng-click="contacts.orderBy = '+name'"></span>
                     </div>
                     Name
                 </th>
                 <th class="col-3">
                     <div class="sortables">
-                        <span class="fa fa-sort-asc" ng-click="list.orderBy = '-email'"></span>
-                        <span class="fa fa-sort-desc" ng-click="list.orderBy = '+email'"></span>
+                        <span class="fa fa-sort-asc" ng-click="contacts.orderBy = '-email'"></span>
+                        <span class="fa fa-sort-desc" ng-click="contacts.orderBy = '+email'"></span>
                     </div>
                     Email
                 </th>
@@ -57,7 +54,7 @@
     <div ng-if="contacts.persons.length === 0 && !contacts.isLoading">
         <div class="alert alert-info">
             <p class="text-center">
-                No results found for search term '{{list.search}}'
+                No results found for search term '{{contacts.search}}'
             </p>
         </div>
     </div>
