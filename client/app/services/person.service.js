@@ -66,7 +66,6 @@ function PersonService($rootScope, toaster, Person) {
       return Person.save(person).$promise.then((response) => {
         toaster.pop('success', `'${person.name}' was added to contacts list`);
         this.isSaving = false;
-        this.persons.push(response);
         this.doSearch();
       });
     },

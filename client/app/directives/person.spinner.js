@@ -1,6 +1,7 @@
 function Spinner() {
   return {
     restrict: 'E',
+    transclude: true,
     scope: {
       isLoading: '='
     },
