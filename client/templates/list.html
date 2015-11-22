@@ -6,7 +6,10 @@
         infinite-scroll-distance="1"
         infinite-scroll-disabled="!contacts.hasMore || contacts.isLoading"
         infinite-scroll-immediate-check="true">
-        <card ng-repeat="person in contacts.persons track by person.id" user="person"></card>
+        <card
+            ng-repeat="person in contacts.persons track by person.id"
+            user="person"
+            ></card>
     </div>
 
     <!-- EMPTY LIST -->
