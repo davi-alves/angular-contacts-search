@@ -15,6 +15,7 @@ import services from './services/person';
 import controllers from './controllers/person';
 import configs from './configs/person';
 import filters from './filters/person';
+import directives from './directives/person';
 import routes from './routes';
 
 angular.module('persons', [
@@ -32,7 +33,8 @@ angular.module('persons', [
   services,
   controllers,
   configs,
-  filters
+  filters,
+  directives
 ])
 
 // routes
